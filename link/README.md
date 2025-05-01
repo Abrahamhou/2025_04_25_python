@@ -15,3 +15,6 @@ https://meet.google.com/ayi-xdjy-fza
 ### github markdown 語法（基本撰写和格式语法）
 https://docs.github.com/zh/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax
 ---
+
+### 強制上傳（以我這為主指令）###
+git push --force
