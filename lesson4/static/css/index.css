@@ -144,11 +144,20 @@ footer {
 
     .main-navigation {
         display: none;
-        /* 隱藏原始導覽列 */
+        /* 手機版選單改為絕對定位，使其不影響 header 高度 */
+        position: absolute;
+        top: 100%; /* 定位在 .site-header .container 的下方 */
+        left: 0;
         width: 100%;
-        order: 3;
-        /* 調整顯示順序，讓它在 logo 和按鈕之後 */
-        margin-top: 15px;
+        background-color: #3c4679; /* 選單背景色 (原桌面版 hover 色) */
+        z-index: 100; /* 確保在其他元素之上 */
+        box-shadow: 0 3px 6px rgba(0,0,0,0.15); /* 加上陰影 */
+        /* order: 3; 不再需要，因為已脫離文檔流 */
+        /* margin-top: 15px; 不再需要 */
+    }
+
+    .main-navigation.toggled {
+        display: block; /* 當 .toggled class 被加入時顯示選單 */
     }
 
     .main-navigation.toggled {
@@ -164,15 +173,27 @@ footer {
     }
 
     .main-navigation ul li {
-        margin: 10px 0;
-        /* 垂直間距 */
+        /* margin: 10px 0; */ /* 原來的垂直間距 */
+        margin: 0; /* 重置 li 的 margin */
         width: 100%;
     }
 
     .main-navigation ul li a {
         display: block;
-        /* 讓連結佔滿整個 li */
         text-align: center;
-        padding: 12px 0;
+        /* padding: 12px 0; */ /* 原來的 padding */
+        padding: 15px; /* 調整 padding 使點擊區域更大 */
+        color: #fff; /* 選單項目文字顏色 */
+        border-bottom: 1px solid #525e8f; /* 選單項目間的分隔線 */
+    }
+
+    .main-navigation ul li:last-child a {
+        border-bottom: none; /* 最後一個項目無底線 */
+    }
+
+    .main-navigation ul li a:hover,
+    .main-navigation ul li a.active {
+        background-color: #90b1e9; /* Hover/Active 背景色 (原 header 背景色) */
+        color: #333; /* Hover/Active 文字顏色 */
     }
 }
