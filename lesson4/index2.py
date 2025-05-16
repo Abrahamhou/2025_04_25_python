@@ -1,10 +1,10 @@
-from flask import Flask,render_template
+from flask import Flask
 
 app = Flask(__name__)
 
 @app.route("/")
 def index():
-    return render_template("index.html")
+    return "<h1>Hello, Flask!</h1><p>這是我的第1頁</p>"
 
 @app.route("/user")
 def user():
@@ -13,3 +13,4 @@ def user():
 @app.route("/product")
 def product():
     return "<h1>product!</h1><p>這是我的第3頁</p>"
+
