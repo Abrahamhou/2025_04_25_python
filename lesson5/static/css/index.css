@@ -91,13 +91,67 @@ main h1 {
 }
 
 /* 頁尾 Footer */
-footer {
+/* footer {
     background-color: #333;
     color: #fff;
     text-align: center;
     padding: 20px 0;
     margin-top: 30px;
+} */
+
+footer {
+    background-color: #ADD8E6;
+    /* 淺藍色 (與圖片背景更接近) */
+    color: #000;
+    /* 文字顏色改為黑色 */
+    padding: 20px 0;
 }
+
+.footer-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.footer-left .logo-text {
+    font-size: 1.5em;
+    /* 調整文字大小 */
+    font-weight: bold;
+    /* 文字加粗 */
+}
+
+.footer-right nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+}
+
+.footer-right nav ul li {
+    margin-left: 20px;
+}
+
+.footer-right nav ul li:first-child {
+    margin-left: 0;
+}
+
+.footer-right nav ul li a {
+    color: #000;
+    /* 連結文字顏色改為黑色 */
+    text-decoration: none;
+}
+
+.footer-right p {
+    margin-top: 10px;
+    text-align: right;
+    font-size: 0.9em;
+    /* 縮小版權文字大小 */
+}
+
+
 
 /* --- Media Queries (RWD) --- */
 
