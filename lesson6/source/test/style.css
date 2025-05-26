@@ -1,0 +1,539 @@
+/* --- 全局樣式 --- */
+body {
+    margin: 0;
+    /* 移除預設邊距 */
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    /* 設定通用字體 */
+    line-height: 1.6;
+    /* 設定行高 */
+    background-color: #f0f2f5;
+    /* 整體頁面背景色，稍淺於區塊背景 */
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    /* 確保 padding 和 border 不會增加元素總寬高 */
+}
+
+/* --- Homes For You 區塊樣式 --- */
+.homes-for-you-section {
+    background-color: #f8f9fa;
+    /* 區塊背景色 */
+    /* */
+    padding-top: 60px;
+    /* 上方內邊距 */
+    /* */
+    padding-bottom: 60px;
+    /* 下方內邊距 */
+    /* */
+}
+
+/* --- 內容容器樣式 --- */
+.container {
+    max-width: 1200px;
+    /* 最大寬度 */
+    /* */
+    margin-left: auto;
+    /* 水平居中 */
+    /* */
+    margin-right: auto;
+    /* 水平居中 */
+    /* */
+    padding-left: 15px;
+    /* 左側內邊距，用於響應式 */
+    /* */
+    padding-right: 15px;
+    /* 右側內邊距，用於響應式 */
+    /* */
+}
+
+/* --- 標題區域樣式 --- */
+.section-header {
+    text-align: center;
+    /* 文字置中 */
+    /* */
+    margin-bottom: 40px;
+    /* 與下方內容的間距 */
+    /* */
+}
+
+.section-header h2 {
+    font-size: 2.5rem;
+    /* 主標題字體大小 */
+    color: #333;
+    /* 主標題顏色 */
+    margin-top: 0;
+    margin-bottom: 10px;
+    /* 與副標題的間距 */
+}
+
+.section-header p {
+    font-size: 1.1rem;
+    /* 副標題字體大小 */
+    /* */
+    color: #6c757d;
+    /* 副標題顏色 */
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+/* --- 輪播容器樣式 --- */
+.property-carousel {
+    position: relative;
+    /* 用於導航箭頭的絕對定位 */
+    /* */
+}
+
+.carousel-track-container {
+    overflow: hidden;
+    /* 隱藏超出部分的卡片，由JS控制滾動 */
+}
+
+.carousel-track {
+    display: flex;
+    /* 使用 Flexbox 排列卡片 */
+    /* */
+    gap: 20px;
+    /* 卡片之間的固定間距 */
+    /* */
+    padding-bottom: 20px;
+    /* 給滾動條或陰影留出空間，如果 overflow-x: auto */
+    /* overflow-x: auto;  若不使用JS控制捲動，可啟用此行並移除 .carousel-track-container 的 overflow: hidden */
+    /* scroll-snap-type: x mandatory; /* 啟用滾動吸附效果 */
+    /* scrollbar-width: none; /* 隱藏 Firefox 滾動條 */
+    /* -ms-overflow-style: none;  IE/Edge 隱藏滾動條 */
+    transition: transform 0.5s ease-in-out;
+    /* 平滑滾動效果 */
+}
+
+/* .carousel-track::-webkit-scrollbar { */
+/* display: none; /* 隱藏 Webkit 瀏覽器 (Chrome, Safari) 滾動條 */
+/* */
+/* } */
+
+/* --- 房產卡片樣式 --- */
+.property-card {
+    background-color: #fff;
+    /* 白色背景 */
+    /* */
+    border-radius: 8px;
+    /* 圓角邊框 */
+    /* */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    /* 輕微的陰影效果 */
+    /* */
+    overflow: hidden;
+    /* 確保圓角裁剪圖片 */
+    /* */
+    flex: 0 0 calc(33.333% - (20px * 2 / 3));
+    /* 桌面：一排3張，考慮間距 */
+    /* */
+    /* scroll-snap-align: start; /* 滾動吸附對齊 */
+    display: flex;
+    /* 讓卡片內容垂直排列 */
+    flex-direction: column;
+    /* 垂直排列 */
+}
+
+/* --- 卡片圖片區域 --- */
+.card-image-wrapper {
+    position: relative;
+    /* 用於標籤定位 */
+    /* */
+    width: 100%;
+    padding-top: 63.15%;
+    /* 圖片長寬比 (240/380 * 100%) */
+    /* */
+    /* height: 240px; /* 或設定固定高度 */
+}
+
+.card-image-wrapper img {
+    position: absolute;
+    /* 絕對定位以填滿 wrapper */
+    top: 0;
+    left: 0;
+    width: 100%;
+    /* 圖片填滿此區域 */
+    /* */
+    height: 100%;
+    /* 圖片填滿此區域 */
+    object-fit: cover;
+    /* 圖片填滿並裁剪 */
+    /* */
+    display: block;
+    /* 移除圖片下方多餘空間 */
+    /* */
+}
+
+/* --- 卡片標籤 --- */
+.card-tags {
+    position: absolute;
+    /* 相對於 card-image-wrapper 定位 */
+    /* */
+    top: 15px;
+    /* */
+    left: 15px;
+    /* */
+    display: flex;
+    /* */
+    gap: 8px;
+    /* 標籤間距 */
+    /* */
+}
+
+.tag {
+    padding: 5px 10px;
+    /* 內邊距 */
+    /* */
+    border-radius: 4px;
+    /* 圓角 */
+    /* */
+    font-size: 0.75rem;
+    /* 字體大小 */
+    /* */
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.tag.sale {
+    background-color: #1D594E;
+    /* 深綠色背景 */
+    /* */
+    color: white;
+    /* 白色文字 */
+    /* */
+}
+
+.tag.rent {
+    background-color: #1D594E;
+    /* 深綠色背景 (同 FOR SALE) */
+    /* */
+    color: white;
+    /* 白色文字 */
+    /* */
+}
+
+.tag.featured {
+    background-color: #FFCC80;
+    /* 黃色背景 */
+    /* */
+    color: #333;
+    /* 深色文字 */
+    /* */
+}
+
+/* --- 卡片內容區域 --- */
+.card-content {
+    padding: 20px;
+    /* 內邊距 */
+    /* */
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    /* 讓內容區域填滿卡片剩餘空間 */
+}
+
+.title-price-row {
+    display: flex;
+    /* 使用 Flexbox */
+    /* */
+    justify-content: space-between;
+    /* 兩端對齊 */
+    /* */
+    align-items: flex-start;
+    /* 頂部對齊 */
+    /* */
+    margin-bottom: 10px;
+    /* 與下方內容的間距 */
+}
+
+.property-title {
+    font-size: 1.2rem;
+    /* 房產名稱字體大小 */
+    font-weight: 600;
+    /* 字體較粗 */
+    /* */
+    color: #212529;
+    /* 深灰色文字 */
+    margin: 0;
+    flex-grow: 1;
+    /* 允許標題佔用更多空間 */
+    margin-right: 10px;
+    /* 與價格的間距 */
+}
+
+.property-price {
+    font-size: 1.15rem;
+    /* 價格字體大小 */
+    font-weight: bold;
+    /* */
+    margin: 0;
+    white-space: nowrap;
+    /* 防止價格換行 */
+}
+
+.property-price.sale-price {
+    color: #E74C3C;
+    /* 銷售價格為紅色 */
+    /* */
+}
+
+.property-price.rent-price {
+    color: #212529;
+    /* 租賃價格為黑色 */
+}
+
+.property-price .text-muted {
+    color: #6c757d;
+    /* "/month" 字樣顏色稍淺 */
+    /* */
+    font-size: 0.9em;
+    /* 字體略小 */
+    /* */
+    font-weight: normal;
+}
+
+.property-address {
+    font-size: 0.95rem;
+    /* 地址字體大小 */
+    color: #6c757d;
+    /* 灰色文字 */
+    /* */
+    margin-bottom: 15px;
+    /* 與下方內容的間距 */
+    /* */
+    display: flex;
+    align-items: center;
+}
+
+.property-address .icon,
+.property-features .icon {
+    margin-right: 8px;
+    /* 圖示與文字間距 */
+    /* */
+}
+
+.property-features {
+    display: flex;
+    /* 水平排列 */
+    /* */
+    gap: 15px;
+    /* 特色之間的間距 */
+    /* */
+    font-size: 0.9rem;
+    /* 字體大小 */
+    /* */
+    color: #6c757d;
+    /* 灰色文字 */
+    /* */
+    margin-top: auto;
+    /* 將特色推到底部 */
+}
+
+.property-features span {
+    display: flex;
+    align-items: center;
+}
+
+/* --- 輪播導航箭頭 --- */
+.carousel-arrow {
+    position: absolute;
+    /* 相對於 .property-carousel 定位 */
+    /* */
+    top: calc(50% - 20px);
+    /* 垂直置中，減去按鈕高度的一半和卡片底部的一些padding */
+    /* */
+    transform: translateY(-50%);
+    /* 精確垂直置中 */
+    /* */
+    background-color: white;
+    /* 白色背景 */
+    /* */
+    border: 1px solid #ddd;
+    /* 邊框 */
+    border-radius: 50%;
+    /* 圓形 */
+    /* */
+    width: 40px;
+    /* 寬度 */
+    /* */
+    height: 40px;
+    /* 高度 */
+    /* */
+    font-size: 24px;
+    /* 箭頭大小 */
+    /* */
+    color: #333;
+    cursor: pointer;
+    /* 滑鼠指標 */
+    /* */
+    z-index: 10;
+    /* 確保在卡片之上 */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    /* 陰影 */
+    /* */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.2s, box-shadow 0.2s;
+}
+
+.carousel-arrow:hover {
+    background-color: #f0f0f0;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.prev-arrow {
+    left: -20px;
+    /* 調整左箭頭位置到容器外側 */
+    /* */
+}
+
+.next-arrow {
+    right: -20px;
+    /* 調整右箭頭位置到容器外側 */
+    /* */
+}
+
+/* --- 輪播分頁指示點 --- */
+.carousel-pagination {
+    text-align: center;
+    /* 水平置中 */
+    /* */
+    margin-top: 30px;
+    /* 與上方卡片的間距 */
+    /* */
+}
+
+.dot {
+    display: inline-block;
+    /* */
+    width: 10px;
+    /* 寬度 */
+    /* */
+    height: 10px;
+    /* 高度 */
+    /* */
+    background-color: #ccc;
+    /* 預設背景色 */
+    /* */
+    border-radius: 50%;
+    /* 圓形 */
+    /* */
+    margin: 0 5px;
+    /* 間距 */
+    /* */
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.dot.active {
+    background-color: #555;
+    /* 當前活動的點有不同樣式 */
+    /* */
+    /* width: 12px; */
+    /* 可選：活動點更大 */
+    /* height: 12px; */
+}
+
+/* --- 響應式設計 (RWD) --- */
+/* */
+
+/* 平板 (Tablet: 576px - 991px) */
+/* */
+@media (max-width: 991px) {
+    .property-card {
+        flex-basis: calc(50% - (20px / 2));
+        /* 一排顯示 2 張卡片，考慮間距 */
+        /* */
+    }
+
+    .prev-arrow {
+        left: -15px;
+        /* 調整箭頭位置 */
+    }
+
+    .next-arrow {
+        right: -15px;
+        /* 調整箭頭位置 */
+    }
+
+    .section-header h2 {
+        font-size: 2.2rem;
+    }
+
+    .section-header p {
+        font-size: 1rem;
+    }
+}
+
+/* 手機 (Mobile < 576px) */
+/* */
+@media (max-width: 575px) {
+    .homes-for-you-section {
+        padding-top: 40px;
+        padding-bottom: 40px;
+    }
+
+    .container {
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+
+    .property-card {
+        flex-basis: calc(100% - 10px);
+        /* 一排顯示 1 張卡片，允許少量邊距 */
+        /* */
+        /* 或者 width: calc(100% - 20px); margin-left: 10px; margin-right: 10px; */
+    }
+
+    .carousel-arrow {
+        /* 導航箭頭可考慮隱藏或調整樣式 */
+        /* */
+        /* display: none; */
+        /* 範例：隱藏箭頭 */
+        width: 35px;
+        height: 35px;
+        font-size: 20px;
+    }
+
+    .prev-arrow {
+        left: 5px;
+        /* 調整箭頭位置到容器內側邊緣 */
+    }
+
+    .next-arrow {
+        right: 5px;
+        /* 調整箭頭位置到容器內側邊緣 */
+    }
+
+    .section-header {
+        margin-bottom: 30px;
+    }
+
+    .section-header h2 {
+        font-size: 1.8rem;
+    }
+
+    .section-header p {
+        font-size: 0.9rem;
+    }
+
+    .property-title {
+        font-size: 1.1rem;
+    }
+
+    .property-price {
+        font-size: 1rem;
+    }
+
+    .card-content {
+        padding: 15px;
+    }
+
+    .carousel-pagination {
+        margin-top: 20px;
+    }
+}
