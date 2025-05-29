@@ -3,7 +3,58 @@
 職能發展學院-最新訊息
 {% endblock %}
 
-{% block main %}
-<h1>{{rows}}</h1>
+{%block link%}
+{{super()}}
+<link rel="stylesheet" href="{{url_for('static', filename='css/news.css')}}">
 
+
+{% endblock %}
+
+{% block main %}
+
+<div class="accordion-container" id="myNewsAccordion">
+      <h1>最新訊息</h1>
+    <!-- Item 1 (Default Open) -->
+    <div class="accordion-item">
+        <button class="accordion-header" aria-expanded="true" aria-controls="news-content-1" id="news-header-1">
+            <span class="header-main-content">
+                <span class="accordion-title">重要公告：伺服器維護與升級計畫，提升服務穩定性</span>
+                <span class="accordion-date">2024-08-01</span>
+            </span>
+            <span class="accordion-icon" aria-hidden="true"></span>
+        </button>
+        <div id="news-content-1" class="accordion-content" role="region" aria-labelledby="news-header-1">
+            <p>親愛的用戶您好，為提供更穩定與高效的服務，我們將於下週一 (2024年8月5日) 凌晨 02:00 至 05:00 進行伺服器維護與硬體升級作業。期間相關服務可能會有短暫中斷或連線不穩定的情況，建議您避開此時段進行重要操作。若維護時間有所變動，將另行通知。造成您的不便，敬請見諒。感謝您的理解與支持！這是一段比較長的內容，用來測試固定高度與滾動條的效果。我們需要確保即使內容很多，版面依然整潔，並且使用者可以順利閱讀所有資訊。再補充一些文字，讓它肯定會超出預設的幾行高度限制。</p>
+        </div>
+    </div>
+
+    <!-- Item 2 -->
+    <div class="accordion-item">
+        <button class="accordion-header" aria-expanded="false" aria-controls="news-content-2" id="news-header-2">
+            <span class="header-main-content">
+                <span class="accordion-title">新功能發布：個人化儀表板與進階數據分析工具上線</span>
+                <span class="accordion-date">2024-07-28</span>
+            </span>
+            <span class="accordion-icon" aria-hidden="true"></span>
+        </button>
+        <div id="news-content-2" class="accordion-content" role="region" aria-labelledby="news-header-2" hidden>
+            <p>我們很高興宣布，全新的個人化儀表板及進階數據分析工具已正式上線！您可以根據自身需求自訂儀表板佈局，並利用強大的分析工具深入洞察數據。立即登入體驗新功能，發掘更多可能性。</p>
+        </div>
+    </div>
+
+    <!-- Item 3 -->
+    <div class="accordion-item">
+        <button class="accordion-header" aria-expanded="false" aria-controls="news-content-3" id="news-header-3">
+            <span class="header-main-content">
+                <span class="accordion-title">使用者條款更新通知</span>
+                <span class="accordion-date">2024-07-20</span>
+            </span>
+            <span class="accordion-icon" aria-hidden="true"></span>
+        </button>
+        <div id="news-content-3" class="accordion-content" role="region" aria-labelledby="news-header-3" hidden>
+            <p>為符合最新的法規要求並提升用戶權益保障，我們已更新使用者條款。請抽空詳閱相關內容。若您繼續使用本服務，即表示您同意新的使用者條款。</p>
+        </div>
+    </div>
+</div>
+<script src="{{url_for('static', filename='js/news.js')}}"></script>
 {% endblock %}
