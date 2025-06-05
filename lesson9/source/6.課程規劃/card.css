@@ -1,0 +1,135 @@
+body {
+    /* Basic body styling for demonstration */
+    font-family: 'Inter', sans-serif;
+    margin: 0;
+    /* Remove default margin */
+    padding: 20px;
+    /* Add some padding for viewing */
+    background-color: #f4f4f4;
+    /* Light background for contrast */
+}
+
+.course-tabs {
+    display: flex;
+    width: 100%;
+    /* Mobile-first: full width */
+    margin-left: auto;
+    margin-right: auto;
+    /* Height will be determined by button content and padding */
+}
+
+.course-tabs__button {
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    color: #000000;
+    background-color: #E8E6E6;
+    border: none;
+    cursor: pointer;
+    text-align: center;
+    flex-grow: 1;
+    flex-basis: 0;
+    transition: all 0.2s ease;
+    box-sizing: border-box;
+
+    /* Mobile styles (default) */
+    font-size: 18px;
+    padding: 8px 16px;
+    line-height: 1.21em;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    border-bottom-left-radius: 0;
+    /* As per "頁籤下方圓角：0px" */
+    border-bottom-right-radius: 0;
+}
+
+.course-tabs__button--active {
+    background-color: #C3C1C1;
+}
+
+/* Hover effect: "輕微的背景色變化" */
+.course-tabs__button:not(.course-tabs__button--active):hover {
+    background-color: #d8d6d6;
+    /* Slightly darker than inactive, adjust if needed */
+}
+
+/* Focus effect: "明顯的輪廓線指示" */
+.course-tabs__button:focus-visible {
+    outline: 2px solid Highlight;
+    /* Standard system highlight color for focus */
+    outline: 2px solid -webkit-focus-ring-color;
+    /* For Safari/Chrome */
+    outline-offset: 2px;
+    /* Optional: box-shadow for a softer focus, but outline is more standard for accessibility */
+    /* box-shadow: 0 0 0 2px #C3C1C1; */
+}
+
+.course-tabs__divider {
+    height: 1px;
+    background-color: #000000;
+    width: 100%;
+    /* Mobile-first: full width */
+    margin-left: auto;
+    margin-right: auto;
+    /* margin-top: -1px; /* Visually connect with tabs if they had a bottom border.
+                           Since tabs have no bottom border, 0 or a small positive margin might be better.
+                           Or, if panels have a top border, this can overlap.
+                           For now, let's assume it's directly under. */
+}
+
+/* Tab Panel Styles (Basic - for demonstration) */
+.course-tab-panel {
+    padding: 20px;
+    /* border: 1px solid #ddd; */
+    /* The divider acts as the top visual line */
+    /* border-top: none; */
+    width: 100%;
+    /* Mobile-first */
+    max-width: 1174px;
+    /* Consistent max width */
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 20px;
+    /* Space between divider and content */
+    background-color: white;
+    /* Example background */
+    min-height: 100px;
+    /* Example height */
+}
+
+/* Tablet: (min-width: 768px) and (max-width: 1023px) */
+@media (min-width: 768px) and (max-width: 1023px) {
+
+    .course-tabs,
+    .course-tabs__divider,
+    .course-tab-panel {
+        /* Ensure panels also respect this max-width */
+        max-width: 1174px;
+        /* "整體寬度：100%（最大 1174px）" */
+    }
+
+    .course-tabs__button {
+        font-size: 22px;
+        padding: 10px 24px;
+    }
+}
+
+/* Desktop: (min-width: 1024px) */
+@media (min-width: 1024px) {
+
+    .course-tabs,
+    .course-tabs__divider,
+    .course-tab-panel {
+        /* Ensure panels also respect this fixed width */
+        width: 1174px;
+    }
+
+    .course-tabs {
+        height: 53px;
+        /* "整體尺寸：1174px × 53px（桌機版）" */
+    }
+
+    .course-tabs__button {
+        font-size: 24px;
+        padding: 12px 29px;
+    }
+}

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>課程分類頁籤</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+    <div class="course-tabs-container">
+        <div class="course-tabs" role="tablist">
+            <button class="tab-button active" role="tab" aria-selected="true" id="general-tab"
+                aria-controls="general-panel">
+                一般課程
+            </button>
+            <button class="tab-button" role="tab" aria-selected="false" id="advanced-tab"
+                aria-controls="advanced-panel">
+                進階課程
+            </button>
+        </div>
+        <div class="tab-divider"></div>
+
+        <!-- Tab Panels (Content for each tab) - Added for completeness, content will be dynamic -->
+        <div id="general-panel" role="tabpanel" aria-labelledby="general-tab">
+            <!-- Content for 一般課程 will go here -->
+        </div>
+        <div id="advanced-panel" role="tabpanel" aria-labelledby="advanced-tab" class="hidden">
+            <!-- Content for 進階課程 will go here -->
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
