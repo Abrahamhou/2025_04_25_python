@@ -1,0 +1,47 @@
+{% extends "layout/base.html.jinja2" %}
+{% block title %}
+職能發展學院-最新訊息
+{% endblock %}
+
+{%block link%}
+{{super()}}
+<link rel="stylesheet" href="{{url_for('static', filename='css/news.css')}}">
+
+
+{% endblock %}
+
+{% block main %}
+
+<div class="accordion-container" id="myNewsAccordion">
+      <h1>最新訊息</h1>
+
+      
+
+    <!-- Item 1 (Default Open) -->
+    {% for row in rows%}
+    <div class="accordion-item"{% if loop.first %}is-open{% endif %}">
+        <button class="accordion-header" aria-expanded="true" aria-controls="news-content-1" id="news-header-1">
+            <span class="header-main-content">
+                <span class="accordion-title">{{loop.index ~ '. ' ~ row[1]}}</span>
+                <span class="accordion-date">{{row[2].strftime("%Y-%m-%d")}}</span>
+            </span>
+            <span class="accordion-icon" aria-hidden="true"></span>
+        </button>
+        <div id="news-content-1" class="accordion-content" role="region" aria-labelledby="news-header-1">
+            {% if row[3] is not none %}
+                        {% for line in row[3].split("\n")%}
+                            <p>{{line}}</p>
+                        {% endfor %}
+                    {% else %}
+                        <p>沒有資料</p>
+                    {% endif %}
+        </div>
+        {% endfor %}
+    </div>
+
+    
+
+    
+</div>
+<script src="{{url_for('static', filename='js/news.js')}}"></script>
+{% endblock %}
