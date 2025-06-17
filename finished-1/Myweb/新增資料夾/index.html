@@ -20,7 +20,7 @@
         /* 表頭樣式 */
         .nav-bar {
             background: #b0d4e3;
-            padding: 10px 20px;
+            padding: 12px 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -29,13 +29,13 @@
         .nav-bar .logo {
             font-weight: bold;
             color: #343a40;
-            font-size: 18px;
+            font-size: 15px;
         }
 
         .nav-bar .menu {
             display: flex;
-            gap: 15px;
-            font-size: 14px;
+            gap: 11px;
+            font-size: 13px;
             color: #343a40;
         }
 
@@ -45,6 +45,37 @@
 
         .nav-bar .menu span:hover {
             text-decoration: underline;
+        }
+
+        /* 手機版選單按鈕 */
+        .nav-bar .menu-toggle {
+            display: none; /* 預設隱藏 */
+            background: #343a40;
+            color: #fff;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 13px;
+        }
+
+        /* RWD 樣式 */
+        @media (max-width: 768px) {
+            .nav-bar .menu {
+                display: none; /* 預設隱藏 */
+                flex-direction: column; /* 垂直排列 */
+                position: absolute;
+                top: 60px; /* 導覽列高度 */
+                right: 0; /* 從右邊出現 */
+                width: 200px; /* 選單寬度 */
+                background: #b0d4e3;
+                padding: 10px 20px;
+                box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+            }
+
+            .nav-bar .menu.active {
+                display: flex; /* 顯示選單 */
+            }
         }
 
         /* 主標題 */
@@ -353,6 +384,11 @@
 
         // 頁面載入即更新資料
         updateData();
+
+        function toggleMobileMenu() {
+            const menu = document.querySelector('.nav-bar .menu');
+            menu.classList.toggle('active');
+        }
     </script>
 </body>
 
