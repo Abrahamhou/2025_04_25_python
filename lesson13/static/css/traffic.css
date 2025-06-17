@@ -1,0 +1,361 @@
+/* --- 1. 全局與基礎樣式 (Mobile First) --- */
+:root {
+    --primary-color: #007bff;
+    --success-color: #28a745;
+    --danger-color: #dc3545;
+    --light-gray: #f8f9fa;
+    --gray: #6c757d;
+    --dark-gray: #343a40;
+    --border-color: #e9ecef;
+    --border-radius: 12px;
+    --shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+}
+
+body {
+    font-family: 'Noto Sans TC', sans-serif;
+    background-color: var(--light-gray);
+    color: var(--dark-gray);
+    margin: 0;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 100vh;
+}
+
+.container {
+    width: 100%;
+    max-width: 420px;
+    text-align: center;
+}
+
+/* --- 2. 頁首與標題 --- */
+.header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    margin-bottom: 24px;
+}
+
+.header h1 {
+    font-size: 24px;
+    font-weight: 700;
+    margin: 0;
+    line-height: 1.4;
+}
+
+.menu-btn {
+    display: block;
+    position: absolute;
+    top: 50%;
+    right: 0;
+    transform: translateY(-50%);
+    font-size: 20px;
+    color: var(--gray);
+    cursor: pointer;
+}
+
+/* --- 3. 卡片基礎樣式 --- */
+.card {
+    background-color: #fff;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+    padding: 20px;
+    margin-bottom: 20px;
+    text-align: left;
+    border: 1px solid var(--border-color);
+    transition: all 0.3s ease;
+}
+
+/* --- 4. 主要推薦卡片 --- */
+.recommendation-card {
+    padding: 24px;
+    border-width: 2px;
+}
+
+.recommendation-header {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 16px;
+}
+
+.recommendation-icon-bg {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+.recommendation-icon-bg i {
+    color: #fff;
+    font-size: 22px;
+}
+
+.recommendation-title {
+    font-size: 22px;
+    font-weight: 700;
+}
+
+.recommendation-title .bike-icon {
+    font-size: 20px;
+    margin-left: 8px;
+    color: var(--gray);
+}
+
+.recommendation-body .time-info {
+    font-size: 16px;
+    color: var(--dark-gray);
+    margin-bottom: 12px;
+}
+
+.time-info .highlight {
+    background-color: #fffbe6;
+    color: #d48806;
+    padding: 4px 8px;
+    border-radius: 6px;
+    font-weight: 700;
+    font-size: 18px;
+}
+
+.recommendation-body .reason {
+    font-size: 15px;
+    color: var(--gray);
+    line-height: 1.6;
+}
+
+.recommend-ubike {
+    border-color: var(--success-color);
+}
+
+.recommend-ubike .recommendation-icon-bg {
+    background-color: var(--success-color);
+}
+
+.recommend-bus {
+    border-color: var(--primary-color);
+}
+
+.recommend-bus .recommendation-icon-bg {
+    background-color: var(--primary-color);
+}
+
+/* --- 5. 手動預測區塊 --- */
+.manual-predictor {
+    text-align: left;
+}
+
+.predictor-toggle {
+    font-size: 18px;
+    font-weight: 500;
+    cursor: pointer;
+    width: 100%;
+    text-align: left;
+    padding: 10px 0;
+    border: none;
+    background: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.predictor-toggle i {
+    transition: transform 0.3s ease;
+}
+
+.predictor-content {
+    display: none;
+    /* 預設隱藏 */
+    padding-top: 15px;
+    border-top: 1px solid var(--border-color);
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 14px;
+    color: var(--gray);
+}
+
+.form-group input,
+.form-group select {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-sizing: border-box;
+}
+
+#manual-predict-btn {
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    font-weight: 700;
+    color: #fff;
+    background-color: var(--success-color);
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+#manual-predict-btn:hover {
+    background-color: #218838;
+}
+
+#manual-result {
+    margin-top: 15px;
+    padding: 10px;
+    background-color: var(--light-gray);
+    border-radius: 8px;
+    font-weight: 500;
+    text-align: center;
+    display: none;
+    /* 預設隱藏 */
+}
+
+/* --- 6. 按鈕 --- */
+#reload-btn {
+    width: 100%;
+    padding: 14px;
+    font-size: 16px;
+    font-weight: 700;
+    color: #fff;
+    background-color: var(--primary-color);
+    border: none;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+    box-shadow: 0 2px 5px rgba(0, 123, 255, 0.3);
+}
+
+#reload-btn:hover {
+    background-color: #0056b3;
+}
+
+#reload-btn:active {
+    transform: scale(0.98);
+}
+
+/* --- 7. 桌面版 RWD 樣式 --- */
+@media (min-width: 768px) {
+    .container {
+        max-width: 600px;
+    }
+
+    .header h1 {
+        font-size: 28px;
+    }
+
+    .menu-btn {
+        display: none;
+    }
+
+    .desktop-only {
+        display: flex;
+    }
+
+    .mobile-only {
+        display: none;
+    }
+
+    .route-info {
+        justify-content: space-between;
+        padding: 0 10px;
+        margin-bottom: 10px;
+        color: var(--gray);
+    }
+
+    .recommendation-card {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 20px 30px;
+    }
+
+    .recommendation-body {
+        flex-grow: 1;
+        margin-left: 20px;
+    }
+
+    .recommendation-body .reason ul {
+        padding-left: 20px;
+        margin: 0;
+    }
+
+    .recommendation-body .reason li {
+        margin-bottom: 5px;
+    }
+
+    .recommendation-card .main-icon {
+        font-size: 50px;
+        color: var(--gray);
+        opacity: 0.2;
+    }
+
+    .details-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+    }
+
+    .detail-card {
+        padding: 16px;
+    }
+
+    .detail-header {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 10px;
+    }
+
+    .detail-header i {
+        font-size: 20px;
+        color: var(--gray);
+    }
+
+    .detail-header .brand {
+        font-size: 12px;
+        background-color: #f0f0f0;
+        padding: 2px 6px;
+        border-radius: 4px;
+    }
+
+    .detail-header .title {
+        font-weight: 500;
+    }
+
+    .detail-content {
+        font-size: 16px;
+    }
+
+    .detail-content .value {
+        font-size: 24px;
+        font-weight: 700;
+        margin-right: 4px;
+    }
+
+    #ubike-availability .value {
+        color: var(--success-color);
+    }
+
+    #bus-eta .value {
+        color: var(--primary-color);
+    }
+}
+
+/* 載入中動畫 */
+.loading {
+    opacity: 0.5;
+    pointer-events: none;
+}

@@ -2,6 +2,14 @@
 {% block title %}
 職能發展學院-交通路線
 {% endblock %}
+
+{% block head %}
+    
+    
+
+   
+{% endblock %}
+
 {% block link %}
 {{super()}}
 <link rel="stylesheet" href="{{url_for('static', filename='css/traffic.css')}}">
@@ -9,9 +17,6 @@
 
 
 {% block main %}
-<h1>{{self.title()}}</h1>
- 
-
     <div class="container" id="main-container">
         <!-- 頁首 -->
         <div class="header">
@@ -246,5 +251,4 @@
         manualPredictBtn.addEventListener('click', handleManualPrediction);
 
     </script>
-
 {% endblock %}
