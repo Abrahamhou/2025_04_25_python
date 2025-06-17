@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>芝山站至職能發展學院 交通決策建議系統</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <style>
+        :root {
+            --primary-color: #007bff;
+            --success-color: #28a745;
+            --light-gray: #f8f9fa;
+            --gray: #6c757d;
+            --dark-gray: #343a40;
+            --border-radius: 12px;
+        }
+
+        body {
+            font-family: 'Noto Sans TC', sans-serif;
+            margin: 0;
+            background: var(--light-gray);
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* 表頭樣式 */
+        .top-bar {
+            background: #e0e0e0;
+            color: var(--dark-gray);
+            padding: 8px 16px;
+            font-size: 14px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .top-bar button {
+            background: none;
+            border: none;
+            color: #333;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .top-bar button:hover {
+            text-decoration: underline;
+        }
+
+        header {
+            background: var(--primary-color);
+            color: #fff;
+            padding: 10px 20px;
+            text-align: center;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 20px;
+        }
+
+        .container {
+            flex: 1;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .card {
+            background: #fff;
+            border-radius: var(--border-radius);
+            padding: 16px;
+            margin-bottom: 16px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .recommendation-title {
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .time-info {
+            margin: 10px 0;
+        }
+
+        .highlight {
+            background: #fffbe6;
+            color: #d48806;
+            padding: 2px 6px;
+            border-radius: 4px;
+        }
+
+        .details-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .value {
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        button

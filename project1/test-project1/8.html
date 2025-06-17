@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>芝山站至職能發展學院 交通決策建議系統</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet" />
+    <style>
+        body {
+            font-family: 'Noto Sans TC', sans-serif;
+            margin: 0;
+            background: #f5f5f5;
+        }
+
+        .header {
+            background: #fff;
+            border-bottom: 3px solid #004B97;
+            padding: 16px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header .logo {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .header .logo .logo-text {
+            display: flex;
+            flex-direction: column;
+            font-size: 14px;
+            color: #000;
+        }
+
+        .header .logo .logo-text strong {
+            font-size: 16px;
+        }
+
+        .nav {
+            display: flex;
+            gap: 20px;
+            font-size: 14px;
+            color: #004B97;
+        }
+
+        .nav span {
+            cursor: pointer;
+        }
+
+        .nav span:hover {
+            text-decoration: underline;
+        }
+
+        .main-title {
+            text-align: center;
+            padding: 40px 10px 30px 10px;
+            font-weight: 700;
+            font-size: 22px;
+            color: #004B97;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 30px 10px;
+        }
+
+        .card {
+            background: #fff;
+            border-radius: 6px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin-bottom: 24px;
+        }
+
+        .recommendation-card {
+            border: 2px solid #28a745;
+        }
+
+        .recommendation-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .recommendation-header .icon-circle {
+            background: #28a745;
+            color: #fff;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .recommendation-title {
+            font-weight: 700;
+            font-size: 18px;
+        }
+
+        .time-info {
+            margin: 10px 0;
+        }
+
+        .time-info .highlight {
+            background: #fffbe6;
+            color: #d48806;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: 700;
+        }
+
+        .details-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .manual-toggle {
+            font-weight: 500;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .manual-content {
+            display: none;
+            margin-top: 8px;
+        }
+
+        .manual-content input {
+            width: 100%;
+            padding: 6px;
+            margin-bottom: 6px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .manual-content button {
+            background: #28a745;
+            color: #fff;
+            border: none;
+            padding: 8px;
+            width: 100%;
+            border-radius: 4px;
+        }
+
+        .reload-btn {
+            background: #004B97;
+            color: #fff;
+            border: none;
+            padding: 12px;
+            width: 100%;
+            border-radius: 4px;
+            font-weight: 700;
+        }
+
+        footer {
+            background: #004B97;
+            color: #fff;
+            padding: 16px 20px;
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            align-items: center;
+            font-size: 12px;
+        }
+
+        footer .logo {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        footer .links {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        footer .links span {
+            cursor: pointer;
+        }
+
+        footer .links span:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        <div class="logo">
+            <div style="font-weight:bold; color:#004B97;">TAIPEI</div>
+            <div class="logo-text">
+                <strong>臺北市職能發展學院</strong>
+                <span>Taipei City Vocational Development Institute</span>
+            </div>
+        </div>
+        <div class="nav">
+            <span>資料總覽</span>
+            <span>最新消息</span>
+            <span>交通建議</span>
+            <span>聯絡我們</span>
+        </div>
+    </div>
+
+    <div class="main-title">
+        芝山站至職能發展學院<br>交通決策建議系統
+    </div>
+
+    <div class="container">
+        <div class="card recommendation-card">
+            <div class="recommendation-header">
+                <div class="icon-circle"><i class="fa-solid fa-bicycle"></i></div>
+                <div class="recommendation-title">推薦騎乘 U-Bike</div>
+            </div>
+            <div class="time-info">預估時間：<span class="highlight" id="pred-time">-- 分鐘</span></div>
+            <ul style="font-size: 14px; color: #6c757d;">
+                <li>步行 + 租借步程較短，機動性高</li>
+                <li>公車預估總時間約 <span id="bus-time">--</span> 分鐘</li>
+            </ul>
+        </div>
+
+        <div class="details-grid">
+            <div class="card">
+                <div><i class="fa-solid fa-bicycle"></i> U-Bike 芝山站</div>
+                <div>可借車輛：<strong id="bike-count">--</strong></div>
+            </div>
+            <div class="card">
+                <div><i class="fa-solid fa-bus"></i> 小巴11</div>
+                <div>預估到站時間：<strong id="bus-eta">--</strong> 分鐘</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="manual-toggle" onclick="toggleManual()">
+                <span><i class="fa-solid fa-calculator"></i> 手動預測騎乘時間</span>
+                <i class="fa-solid fa-chevron-down" id="toggle-icon"></i>
+            </div>
+            <div class="manual-content" id="manual-content">
+                <input type="date" id="date-input" />
+                <input type="number" id="hour-input" placeholder="輸入小時 (0-23)" min="0" max="23" />
+                <button onclick="manualPredict()">進行預測</button>
+                <div id="manual-result" style="margin-top:4px;"></div>
+            </div>
+        </div>
+
+        <button class="reload-btn" onclick="updateData()">重新查詢</button>
+    </div>
+
+    <footer>
+        <div class="logo">
+            <i class="fa-solid fa-building"></i> JustHome
+        </div>
+        <div class="links">
+            <span>Discover</span>|
+            <span>Quick Link</span>|
+            <span>Contact Us</span>|
+            <span>Our Address</span>|
+            <span>Get App</span>
+        </div>
+    </footer>
+
+    <script>
+        function simulatePrediction(hour, day) {
+            const base = 825;
+            let factor = 50;
+            if (day < 5) {
+                if (hour >= 7 && hour <= 9) factor = 200;
+                else if (hour >= 17 && hour <= 19) factor = 250;
+            }
+            return (base + Math.random() * factor) / 60;
+        }
+
+        function updateData() {
+            const bikeCount = Math.floor(Math.random() * 15);
+            const busEta = Math.floor(Math.random() * 10) + 1;
+            const now = new Date();
+            const predTime = Math.round(simulatePrediction(now.getHours(), now.getDay()) + 5);
+            const busTime = busEta + 9 + 3;
+
+            document.getElementById("bike-count").innerText = bikeCount;
+            document.getElementById("bus-eta").innerText = busEta;
+            document.getElementById("pred-time").innerText = predTime + " 分鐘";
+            document.getElementById("bus-time").innerText = busTime;
+
+            const card = document.querySelector(".recommendation-card");
+            if (bikeCount < 3 || predTime > busTime + 3) {
+                card.style.borderColor = "#004B97";
+                card.querySelector(".icon-circle").style.background = "#004B97";
+                card.querySelector(".icon-circle i").className = "fa-solid fa-bus";
+                card.querySelector(".recommendation-title").innerText = "推薦搭乘 小巴11";
+                document.getElementById("pred-time").innerText = busTime + " 分鐘";
+            } else {
+                card.style.borderColor = "#28a745";
+                card.querySelector(".icon-circle").style.background = "#28a745";
+                card.querySelector(".icon-circle i").className = "fa-solid fa-bicycle";
+                card.querySelector(".recommendation-title").innerText = "推薦騎乘 U-Bike";
+            }
+        }
+
+        function toggleManual() {
+            const content = document.getElementById("manual-content");
+            const icon = document.getElementById("toggle-icon");
+            if (content.style.display === "block") {
+                content.style.display = "none";
+                icon.className = "fa-solid fa-chevron-down";
+            } else {
+                content.style.display = "block";
+                icon.className = "fa-solid fa-chevron-up";
+            }
+        }
+
+        function manualPredict() {
+            const date = document.getElementById("date-input").value;
+            const hour = parseInt(document.getElementById("hour-input").value);
+            if (!date || isNaN(hour) || hour < 0 || hour > 23) {
+                document.getElementById("manual-result").innerText = "請輸入有效日期與小時";
+                return;
+            }
+            const d = new Date(date);
+            const pred = Math.round(simulatePrediction(hour, d.getDay()));
+            document.getElementById("manual-result").innerText = `預測騎乘時間約 ${pred} 分鐘`;
+        }
+
+        updateData();
+    </script>
+</body>
+
+</html>

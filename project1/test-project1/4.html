@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>芝山站至職能發展學院 交通決策建議系統</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <style>
+        :root {
+            --primary-color: #007bff;
+            --success-color: #28a745;
+            --light-gray: #f8f9fa;
+            --gray: #6c757d;
+            --dark-gray: #343a40;
+            --border-radius: 12px;
+        }
+
+        body {
+            font-family: 'Noto Sans TC', sans-serif;
+            margin: 0;
+            background: var(--light-gray);
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* 正確表頭樣式 */
+        .nav-bar {
+            background: #b0d4e3;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .nav-bar .logo {
+            font-weight: bold;
+            color: var(--dark-gray);
+            font-size: 18px;
+        }
+
+        .nav-bar .menu {
+            display: flex;
+            gap: 15px;
+            font-size: 14px;
+            color: var(--dark-gray);
+        }
+
+        .nav-bar .menu span {
+            cursor: pointer;
+        }
+
+        .nav-bar .menu span:hover {
+            text-decoration: underline;
+        }
+
+        header {
+            background: var(--primary-color);
+            color: #fff;
+            padding: 10px 20px;
+            text-align: center;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 20px;
+        }
+
+        .container {
+            flex: 1;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .card {
+            background: #fff;
+            border-radius: var(--border-radius);
+            padding: 16px;
+            margin-bottom: 16px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .recommendation-title {
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .time-info {
+            margin: 10px 0;
+        }
+
+        .highlight {
+            background: #fffbe6;
+            color: #d48806;
+            padding: 2px 6px;
+            border-radius: 4px;
+        }
+
+        .details-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .value {
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 6px;
+            color: #fff;
+            font-size: 16px;
+        }
+
+        #reload-btn {
+            background: var(--primary-color);
+        }
+
+        #manual-predict-btn {
+            background: var(--success-color);
+            margin-top: 8px;
+        }
+
+        footer {
+            background: #e0f0f8;
+            color: var(--gray);
+            padding: 10px 20px;
+            font-size: 14px;
+            text-align: center;
+        }
+
+        footer .links {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 5px;
+        }
+
+        @media (min-width: 768px) {
+            header h1 {
+                font-size: 24px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- 正確表頭 -->
+    <div class="nav-bar">
+        <div class="logo">職能發展學院</div>
+        <div class="menu">
+            <span>資料總覽</span>
+            <span>最新消息</span>
+            <span>交通建議</span>
+            <span>聯絡我們</span>
+        </div>
+    </div>
+
+    <!-- 頁面主標題 -->
+    <header>
+        <h1>職能發展學院交通系統</h1>
+    </header>
+
+    <div class="container">
+        <div class="card" id="recommendation-card">
+            <div class="recommendation-title" id="rec-title">推薦騎乘 U-Bike</div>
+            <div class="time-info">預估時間：<span class="highlight" id="rec-time">-- 分鐘</span></div>
+            <div id="rec-reason">
+                <ul>
+                    <li>步行 + 租借步程較短，機動性高</li>
+                    <li>公車預估總時間約 -- 分鐘</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="details-grid">
+            <div class="card">
+                <div>U-Bike 可借車輛：<span class="value" id="ubike-count">--</span></div>
+            </div>
+            <div class="card">
+                <div>小巴11 預估到站時間：<span class="value" id="bus-eta">--</span> 分鐘</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <input type="date" id="date-input" style="width:100%; margin-bottom:8px;">
+            <input type="number" id="time-input" min="0" max="23" placeholder="輸入小時 (0-23)"
+                style="width:100%; margin-bottom:8px;">
+            <button id="manual-predict-btn">手動預測騎乘時間</button>
+            <div id="manual-result" style="margin-top:8px;"></div>
+        </div>
+
+        <button id="reload-btn">重新查詢</button>
+    </div>
+
+    <!-- 表尾 -->
+    <footer>
+        <div>JustHome</div>
+        <div class="links">
+            <span>Discover</span>|
+            <span>Quick Link</span>|
+            <span>Contact Us</span>|
+            <span>Our Address</span>|
+            <span>Get App</span>
+        </div>
+        <div>&copy; 2025 職能發展學院. 保留所有權利。</div>
+    </footer>
+
+    <script>
+        function simulatePrediction(hour, day) {
+            const base = 825;
+            let factor = 50;
+            if (day < 5) {
+                if (hour >= 7 && hour <= 9) factor = 200;
+                else if (hour >= 17 && hour <= 19) factor = 250;
+            }
+            return (base + Math.random() * factor) / 60;
+        }
+
+        async function updateRecommendation() {
+            const ubikeCount = Math.floor(Math.random() * 15);
+            const busEta = Math.floor(Math.random() * 10) + 1;
+
+            const now = new Date();
+            const predTime = simulatePrediction(now.getHours(), now.getDay());
+
+            document.getElementById('ubike-count').innerText = ubikeCount;
+            document.getElementById('bus-eta').innerText = busEta;
+
+            const ubikeTotal = predTime + 5;
+            const busTotal = busEta + 9 + 3;
+
+            if (ubikeCount < 3 || ubikeTotal > busTotal + 3) {
+                document.getElementById('rec-title').innerText = '推薦搭乘 小巴11';
+                document.getElementById('rec-time').innerText = `${Math.round(busTotal)} 分鐘`;
+                document.getElementById('rec-reason').innerHTML = `<ul><li>U-Bike 車輛數不足或時間較長</li></ul>`;
+                document.getElementById('recommendation-card').style.borderColor = 'var(--primary-color)';
+            } else {
+                document.getElementById('rec-title').innerText = '推薦騎乘 U-Bike';
+                document.getElementById('rec-time').innerText = `${Math.round(ubikeTotal)} 分鐘`;
+                document.getElementById('rec-reason').innerHTML = `<ul><li>步行 + 租借步程較短，機動性高</li><li>公車預估總時間約 ${Math.round(busTotal)} 分鐘</li></ul>`;
+                document.getElementById('recommendation-card').style.borderColor = 'var(--success-color)';
+            }
+        }
+
+        document.getElementById('reload-btn').addEventListener('click', updateRecommendation);
+
+        document.getElementById('manual-predict-btn').addEventListener('click', () => {
+            const date = document.getElementById('date-input').value;
+            const hour = parseInt(document.getElementById('time-input').value);
+            if (!date || isNaN(hour) || hour < 0 || hour > 23) {
+                document.getElementById('manual-result').innerText = '請輸入有效的日期與小時';
+                return;
+            }
+            const d = new Date(date);
+            const pred = simulatePrediction(hour, d.getDay());
+            document.getElementById('manual-result').innerText = `預測騎乘時間約 ${Math.round(pred)} 分鐘`;
+        });
+
+        updateRecommendation();
+    </script>
+</body>
+
+</html>
