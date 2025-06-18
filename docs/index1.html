@@ -34,7 +34,7 @@
 
         .nav-bar .menu {
             display: flex;
-            gap: 3px;
+            gap: 5px;
             font-size: 14px;
             color: #343a40;
         }
@@ -286,7 +286,7 @@
             <span style="cursor: pointer;">Get App</span>
         </div>
     </footer>
-
+      
 
     <script>
         function simulatePrediction(hour, day) {
@@ -313,35 +313,17 @@
 
             // 動態更新推薦樣式
             const card = document.querySelector(".recommendation-card");
-            const predTimeElement = document.getElementById("pred-time");
-            const busTimeElement = document.getElementById("bus-time");
-            const iconCircle = card.querySelector(".icon-circle");
-            const icon = iconCircle.querySelector("i");
-            const recommendationTitle = card.querySelector(".recommendation-title");
-
-            // 比較預估時間，推薦時間較短的交通方式
-            if (bikeCount < 3 || busTime < predTime) {
-                // 推薦搭乘 小巴11
+            if (bikeCount < 3 || predTime > busTime + 3) {
                 card.style.borderColor = "#007bff";
-                iconCircle.style.background = "#007bff";
-                icon.className = "fa-solid fa-bus";
-                recommendationTitle.innerText = "推薦搭乘 小巴11";
-                predTimeElement.innerText = busTime + " 分鐘"; // 顯示小巴總時間
-                // 更新下方文字為 U-Bike 預估時間
-                document.querySelector(".recommendation-card ul li:nth-child(2)").innerHTML = `騎乘 U-Bike 預估總時間約 <span id="bus-time">${predTime}</span> 分鐘`;
-                // 更新推薦理由文字
-                document.querySelector(".recommendation-card ul li:nth-child(1)").innerText = "因步行+等待搭乘時間較短，建議搭乘";
+                card.querySelector(".icon-circle").style.background = "#007bff";
+                card.querySelector(".icon-circle i").className = "fa-solid fa-bus";
+                card.querySelector(".recommendation-title").innerText = "推薦搭乘 小巴11";
+                document.getElementById("pred-time").innerText = busTime + " 分鐘";
             } else {
-                // 推薦騎乘 U-Bike
                 card.style.borderColor = "#28a745";
-                iconCircle.style.background = "#28a745";
-                icon.className = "fa-solid fa-bicycle";
-                recommendationTitle.innerText = "推薦騎乘 U-Bike";
-                predTimeElement.innerText = predTime + " 分鐘"; // 顯示 U-Bike 預估時間
-                 // 恢復下方文字為公車預估時間
-                document.querySelector(".recommendation-card ul li:nth-child(2)").innerHTML = `公車預估總時間約 <span id="bus-time">${busTime}</span> 分鐘`;
-                // 恢复推荐理由文字
-                document.querySelector(".recommendation-card ul li:nth-child(1)").innerText = "步行 + 租借步程較短，機動性高";
+                card.querySelector(".icon-circle").style.background = "#28a745";
+                card.querySelector(".icon-circle i").className = "fa-solid fa-bicycle";
+                card.querySelector(".recommendation-title").innerText = "推薦騎乘 U-Bike";
             }
         }
 
