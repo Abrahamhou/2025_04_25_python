@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>芝山站至職能發展學院 交通決策建議系統</title>
+    <!-- 引入 Google Fonts 和 Font Awesome 圖示庫 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <style>
+        :root {
+            --primary-color: #007bff;
+            --success-color: #28a745;
+            --warning-color: #ffc107;
+            --light-gray: #f8f9fa;
+            --gray: #6c757d;
+            --dark-gray: #343a40;
+            --border-color: #e9ecef;
+            --border-radius: 16px;
+            --shadow: 0 6px 20px rgba(0, 0, 0, 0.07);
+        }
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans TC', sans-serif;
+            background-color: var(--light-gray);
+            color: var(--dark-gray);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 420px;
+            text-align: center;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+
+        .header-title {
+            text-align: left;
+        }
+
+        .header h1 {
+            font-size: 22px;
+            font-weight: 700;
+            margin: 0;
+            line-height: 1.3;
+        }
+
+        .header p {
+            font-size: 14px;
+            color: var(--gray);
+            margin: 4px 0 0 0;
+        }
+
+        .weather-icon {
+            font-size: 28px;
+            color: var(--warning-color);
+        }
+
+        .card {
+            background-color: #fff;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            padding: 20px;
+            margin-bottom: 20px;
+            text-align: left;
+            border: 1px solid var(--border-color);
+        }
+
+        .mode-switcher {
+            background-color: #e9ecef;
+            border-radius: 10px;
+            padding: 4px;
+            margin-bottom: 20px;
+            display: flex;
+        }
+
+        .mode-switcher button {
+            flex: 1;
+            padding: 8px;
+            border: none;
+            background: none;
+            font-size: 14px;
+            font-weight: 500;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .mode-switcher button.active {
+            background-color: #fff;
+            color: var(--primary-color);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        #advance-planner {
+            display: none;
+        }
+
+        .recommendation-card {
+            display: flex;
+            align-items: center;
+            padding: 24px;
+            border-width: 2px;
+        }
+
+        .recommendation-header {
+            flex-shrink: 0;
+        }
+
+        .recommendation-body {
+            flex-grow: 1;
+            margin-left: 15px;
+        }
+
+        .recommendation-icon-bg {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .recommendation-icon-bg i {
+            color: #fff;
+            font-size: 22px;
+        }
+
+        .recommendation-title {
+            font-size: 22px;
+            font-weight: 700;
+        }
+
+        .time-info {
+            font-size: 16px;
+            margin-bottom: 12px;
+        }
+
+        .time-info .highlight {
+            background-color: #fffbe6;
+            color: #d48806;
+            padding: 4px 8px;
+            border-radius: 6px;
+            font-weight: 700;
+            font-size: 18px;
+        }
+
+        .reason ul {
+            padding-left: 20px;
+            margin: 0;
+            font-size: 15px;
+            color: var(--gray);
+            line-height: 1.6;
+        }
+
+        .reason li {
+            margin-bottom: 5px;
+        }
+
+        .main-icon {
+            display: none;
+        }
+
+        .recommend-ubike {
+            border-color: var(--success-color);
+        }
+
+        .recommend-bus {
+            border-color: var(--primary-color);
+        }
+
+        .details-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .detail-card {
+            padding: 16px;
+        }
+
+        .detail-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+            font-weight: 500;
+        }
+
+        .detail-header i {
+            font-size: 20px;
+            color: var(--gray);
+        }
+
+        .detail-content {
+            font-size: 16px;
+        }
+
+        .detail-content .value {
+            font-size: 24px;
+            font-weight: 700;
+            margin-right: 4px;
+        }
+
+        #ubike-availability .value {
+            color: var(--success-color);
+        }
+
+        #bus-eta .value {
+            color: var(--primary-color);
+        }
+
+        .manual-predictor {}
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-size: 14px;
+            color: var(--gray);
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            box-sizing: border-box;
+        }
+
+        #manual-result {
+            margin-top: 15px;
+            padding: 12px;
+            background-color: var(--light-gray);
+            border-radius: 8px;
+            font-weight: 500;
+            text-align: center;
+            display: none;
+        }
+
+        #manual-result .value {
+            font-weight: 700;
+            color: var(--primary-color);
+            font-size: 18px;
+        }
+
+        #reload-btn {
+            width: 100%;
+            padding: 14px;
+            font-size: 16px;
+            font-weight: 700;
+            color: #fff;
+            background-color: var(--primary-color);
+            border: none;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-shadow: 0 2px 5px rgba(0, 123, 255, 0.3);
+            margin-top: 20px;
+        }
+
+        .loading {
+            opacity: 0.5;
+            pointer-events: none;
+        }
+
+        @media (min-width: 768px) {
+            .container {
+                max-width: 700px;
+            }
+
+            .header h1 {
+                font-size: 28px;
+            }
+
+            .recommendation-card {
+                padding: 20px 30px;
+            }
+
+            .main-icon {
+                display: block !important;
+                font-size: 50px;
+                color: var(--gray);
+                opacity: 0.2;
+                margin-left: 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container" id="main-container">
+        <div class="header">
+            <div class="header-title">
+                <h1>交通決策建議系統</h1>
+                <p>芝山站 至 職能發展學院</p>
+            </div>
+            <div id="weather-icon" class="weather-icon"></div>
+        </div>
+
+        <div class="mode-switcher">
+            <button id="btn-realtime" class="active">即時決策建議</button>
+            <button id="btn-advance">預先規劃 & 手動預測</button>
+        </div>
+
+        <div id="recommendation-card" class="card recommendation-card">
+            <div class="recommendation-header">
+                <div id="rec-icon-bg" class="recommendation-icon-bg"></div>
+            </div>
+            <div class="recommendation-body">
+                <h2 id="rec-title" class="recommendation-title"></h2>
+                <p class="time-info">預估總時間：<span id="rec-time" class="highlight"></span></p>
+                <div id="rec-reason" class="reason"></div>
+            </div>
+            <div class="main-icon"><i id="rec-main-icon"></i></div>
+        </div>
+
+        <div class="details-grid">
+            <div class="card detail-card">
+                <div class="detail-header"><i class="fa-solid fa-bicycle"></i><span>U-Bike 2.0</span></div>
+                <div id="ubike-availability" class="detail-content"></div>
+            </div>
+            <div class="card detail-card">
+                <div class="detail-header"><i class="fa-solid fa-bus"></i><span>小巴11</span></div>
+                <div id="bus-eta" class="detail-content"></div>
+            </div>
+        </div>
+
+        <div id="advance-planner" class="card" style="display: none;">
+            <div class="form-group">
+                <label for="eta-input">預計抵達芝山站時間 (用於綜合建議)</label>
+                <select id="eta-input" class="form-control">
+                    <option value="0">現在</option>
+                    <option value="5">5 分鐘後</option>
+                    <option value="10" selected>10 分鐘後</option>
+                    <option value="15">15 分鐘後</option>
+                    <option value="30">30 分鐘後</option>
+                </select>
+            </div>
+            <hr style="border: none; border-top: 1px solid var(--border-color); margin: 20px 0;">
+            <div class="form-group">
+                <label for="datetime-input">或指定日期與時間 (用於單獨預測U-Bike騎乘時間)</label>
+                <input type="datetime-local" id="datetime-input" class="form-control">
+            </div>
+            <div id="manual-result"></div>
+        </div>
+
+        <button id="reload-btn">更新建議</button>
+    </div>
+
+    <script>
+        // --- 1. 模擬 API 與模型 ---
+        function getSimulatedWeather(hour) {
+            const isRaining = Math.random() < 0.15;
+            let temp = (hour > 6 && hour < 19) ? Math.floor(Math.random() * 8) + 22 : Math.floor(Math.random() * 6) + 18;
+            return { isRaining, temperature: temp };
+        }
+        function getSimulatedTrafficDelayIndex(hour, dayOfWeek) {
+            let delayIndex = 1.0;
+            if (dayOfWeek <= 4 && ((hour >= 7 && hour <= 9) || (hour >= 17 && hour <= 19))) {
+                delayIndex = 1.2 + Math.random() * 0.5;
+            }
+            return delayIndex;
+        }
+        function getSimulatedBusETA(hour) {
+            return ((hour >= 7 && hour <= 9) || (hour >= 17 && hour <= 19)) ? Math.floor(Math.random() * 5) + 3 : Math.floor(Math.random() * 10) + 5;
+        }
+        function predictRideTime(hour, dayOfWeek, isRaining, trafficDelayIndex) {
+            let baseTime = 750;
+            let prediction = baseTime * trafficDelayIndex;
+            if (isRaining) prediction *= 1.2;
+            return prediction / 60;
+        }
+
+        // --- 2. DOM 元素獲取 ---
+        const ui = {
+            mainContainer: document.getElementById('main-container'),
+            weatherIcon: document.getElementById('weather-icon'),
+            recommendationCard: document.getElementById('recommendation-card'),
+            recIconBg: document.getElementById('rec-icon-bg'),
+            recIcon: document.getElementById('rec-icon'),
+            recTitle: document.getElementById('rec-title'),
+            recTime: document.getElementById('rec-time'),
+            recReason: document.getElementById('rec-reason'),
+            recMainIcon: document.getElementById('rec-main-icon'),
+            ubikeAvailability: document.getElementById('ubike-availability'),
+            busEta: document.getElementById('bus-eta'),
+            reloadBtn: document.getElementById('reload-btn'),
+            btnRealtime: document.getElementById('btn-realtime'),
+            btnAdvance: document.getElementById('btn-advance'),
+            advancePlanner: document.getElementById('advance-planner'),
+            etaInput: document.getElementById('eta-input'),
+            datetimeInput: document.getElementById('datetime-input'),
+            manualResult: document.getElementById('manual-result')
+        };
+
+        // --- 3. 核心功能函式 ---
+        async function updateComprehensiveRecommendation() {
+            ui.mainContainer.classList.add('loading');
+            ui.reloadBtn.innerText = "查詢中...";
+            ui.reloadBtn.disabled = true;
+
+            const minutesFromNow = ui.btnAdvance.classList.contains('active') ? parseInt(ui.etaInput.value, 10) : 0;
+            const targetTime = new Date(Date.now() + minutesFromNow * 60 * 1000);
+
+            const hour = targetTime.getHours();
+            const dayOfWeek = (targetTime.getDay() + 6) % 7;
+
+            const weather = getSimulatedWeather(hour);
+            const trafficDelay = getSimulatedTrafficDelayIndex(hour, dayOfWeek);
+            const busArrivalTime = getSimulatedBusETA(hour);
+            const availableBikes = Math.floor(Math.random() * 20);
+            const predictedRideTime = predictRideTime(hour, dayOfWeek, weather.isRaining, trafficDelay);
+
+            await new Promise(resolve => setTimeout(resolve, 500));
+
+            ui.weatherIcon.innerHTML = weather.isRaining ? `<i class="fa-solid fa-cloud-showers-heavy"></i>` : `<i class="fa-solid fa-sun"></i>`;
+            ui.weatherIcon.title = `天氣: ${weather.isRaining ? '下雨' : '晴朗'}, 溫度: ${weather.temperature}°C`;
+
+            const UBIKE_EXTRA_TIME = 5, BUS_RIDE_TIME = 9, BUS_EXTRA_TIME = 3;
+            const ubikeTotalTime = predictedRideTime + UBIKE_EXTRA_TIME;
+            const busTotalTime = busArrivalTime + BUS_RIDE_TIME + BUS_EXTRA_TIME;
+
+            ui.ubikeAvailability.innerHTML = `可借車輛：<span class="value">${availableBikes}</span> 輛`;
+            ui.busEta.innerHTML = `預估到站時間：<span class="value">${busArrivalTime}</span> 分鐘`;
+
+            let recommendation = 'ubike';
+            let reasons = [];
+
+            if (weather.isRaining) {
+                recommendation = 'bus';
+                reasons.push('目前正在下雨，建議搭乘公車較為舒適。');
+            } else if (availableBikes < 3) {
+                recommendation = 'bus';
+                reasons.push('U-Bike 可借車輛較少，搭乘公車風險較低。');
+            } else if (ubikeTotalTime > busTotalTime + 3) {
+                recommendation = 'bus';
+                reasons.push(`預估總時間比 U-Bike (約 ${Math.round(ubikeTotalTime)} 分鐘) 更短。`);
+            } else {
+                reasons.push('U-Bike 機動性高，且總體時間具有優勢。');
+                reasons.push(`公車預估總時間約 ${Math.round(busTotalTime)} 分鐘。`);
+            }
+
+            ui.recommendationCard.className = `card recommendation-card ${recommendation === 'ubike' ? 'recommend-ubike' : 'recommend-bus'}`;
+            if (recommendation === 'ubike') {
+                ui.recIconBg.innerHTML = `<i class="fa-solid fa-bicycle"></i>`;
+                ui.recIconBg.style.backgroundColor = 'var(--success-color)';
+                ui.recTitle.innerText = '推薦搭乘 U-Bike';
+                ui.recTime.innerText = `${Math.round(ubikeTotalTime)} 分鐘`;
+                ui.recMainIcon.className = 'fa-solid fa-bicycle';
+            } else {
+                ui.recIconBg.innerHTML = `<i class="fa-solid fa-bus"></i>`;
+                ui.recIconBg.style.backgroundColor = 'var(--primary-color)';
+                ui.recTitle.innerText = '推薦搭乘 小巴11';
+                ui.recTime.innerText = `${Math.round(busTotalTime)} 分鐘`;
+                ui.recMainIcon.className = 'fa-solid fa-bus';
+            }
+            ui.recReason.innerHTML = `<ul>${reasons.map(r => `<li>${r}</li>`).join('')}</ul>`;
+
+            ui.mainContainer.classList.remove('loading');
+            ui.reloadBtn.innerText = "更新建議";
+            ui.reloadBtn.disabled = false;
+        }
+
+        function handleManualPrediction() {
+            if (!ui.datetimeInput.value) {
+                ui.manualResult.style.display = 'none';
+                return;
+            }
+            const date = new Date(ui.datetimeInput.value);
+            const hour = date.getHours();
+            const dayOfWeek = (date.getDay() + 6) % 7;
+
+            const predictedRideTime = predictRideTime(hour, dayOfWeek, false, 1.0);
+
+            ui.manualResult.innerHTML = `U-Bike 騎乘時間預測：<span class="value">${Math.round(predictedRideTime)} 分鐘</span>`;
+            ui.manualResult.style.display = 'block';
+        }
+
+        // --- 4. 初始化與事件監聽 ---
+        function initialize() {
+            // 首次載入時顯示載入中狀態
+            ui.recTitle.innerText = '正在查詢...';
+            ui.recReason.innerHTML = '<ul><li>正在為您計算最佳交通方式...</li></ul>';
+            ui.ubikeAvailability.innerHTML = '可借車輛：<span class="value">--</span> 輛';
+            ui.busEta.innerHTML = '預估到站時間：<span class="value">--</span> 分鐘';
+
+            updateComprehensiveRecommendation();
+
+            const now = new Date();
+            now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
+            ui.datetimeInput.value = now.toISOString().slice(0, 16);
+            ui.manualResult.style.display = 'none';
+
+            ui.reloadBtn.addEventListener('click', updateComprehensiveRecommendation);
+
+            ui.btnRealtime.addEventListener('click', () => {
+                ui.btnRealtime.classList.add('active');
+                ui.btnAdvance.classList.remove('active');
+                ui.advancePlanner.style.display = 'none';
+                ui.reloadBtn.innerText = "更新建議";
+                updateComprehensiveRecommendation();
+            });
+
+            ui.btnAdvance.addEventListener('click', () => {
+                ui.btnAdvance.classList.add('active');
+                ui.btnRealtime.classList.remove('active');
+                ui.advancePlanner.style.display = 'block';
+                ui.reloadBtn.innerText = "更新綜合建議";
+                handleManualPrediction();
+            });
+
+            ui.etaInput.addEventListener('change', () => {
+                if (ui.btnAdvance.classList.contains('active')) {
+                    // 不需要自動觸發，讓使用者點擊按鈕更新
+                }
+            });
+
+            ui.datetimeInput.addEventListener('change', handleManualPrediction);
+        }
+
+        document.addEventListener('DOMContentLoaded', initialize);
+
+    </script>
+</body>
+
+</html>
